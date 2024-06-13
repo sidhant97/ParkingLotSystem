@@ -1,0 +1,24 @@
+server:
+  port: 8100
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservices
+    username: root
+    password: 9996764596s
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  application:
+    name: PARKING_SERVICE
+
+
+api:
+  parkingcontext: /parking
+
