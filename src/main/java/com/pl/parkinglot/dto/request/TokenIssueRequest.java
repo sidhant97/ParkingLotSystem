@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class TokenIssueRequest {
 
+    private Integer parkingLotId;
+
     private String vehicleNumber;
 
     private String OwnerName;

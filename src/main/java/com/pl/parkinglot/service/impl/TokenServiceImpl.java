@@ -1,25 +1,24 @@
 package com.pl.parkinglot.service.impl;
 
+import com.pl.parkinglot.constant.GateStatus;
 import com.pl.parkinglot.constant.GateType;
 import com.pl.parkinglot.constant.ResponseStatus;
 import com.pl.parkinglot.constant.TokenStatus;
 import com.pl.parkinglot.dto.request.TokenIssueRequest;
 import com.pl.parkinglot.dto.response.TokenIssueResponse;
-import com.pl.parkinglot.model.Gate;
-import com.pl.parkinglot.model.ParkingSlot;
-import com.pl.parkinglot.model.Token;
-import com.pl.parkinglot.model.VehicleAllowed;
-import com.pl.parkinglot.repo.*;
+import com.pl.parkinglot.model.*;
+import com.pl.parkinglot.repo.ParkingLotRepo;
+import com.pl.parkinglot.repo.TokenRepo;
+import com.pl.parkinglot.repo.TokenRequestValidator;
 import com.pl.parkinglot.service.GateService;
-import com.pl.parkinglot.service.SlotAssginStartergy;
 import com.pl.parkinglot.service.TokenService;
 import com.pl.parkinglot.service.VehicleService;
 import com.pl.parkinglot.utils.common.ParkingLotUtils;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 
 @Service
@@ -29,26 +28,7 @@ public class TokenServiceImpl implements TokenService {
     private TokenRepo tokenRepo;
 
     @Autowired
-    private BillRepo billRepo;
-
-    @Autowired
-    private OperatorRepo operatorRepo;
-
-    @Autowired
-    private ParkingFloorRepo parkingFloorRepo;
-
-    @Autowired
     private ParkingLotRepo parkingLotRepo;
-
-
-    @Autowired
-    private ParkingSlotRepo parkingSlotRepo;
-
-    @Autowired
-    private PaymentRepo paymentRepo;
-
-    @Autowired
-    private VehicleAllowedRepo vehicleAllowedRepo;
 
     @Autowired
     private VehicleService vehicleService;
@@ -57,10 +37,10 @@ public class TokenServiceImpl implements TokenService {
     private GateService gateService;
 
     @Autowired
-    private ParkingLotUtils parkingLotUtils;
+    private TokenRequestValidator tokenRequestValidator;
 
     @Autowired
-    private BeanFactory beanFactory;
+    private ParkingLotUtils parkingLotUtils;
 
     @Override
     public TokenIssueResponse entryParking(TokenIssueRequest tokenIssueRequest) {
@@ -89,41 +69,32 @@ public class TokenServiceImpl implements TokenService {
         return tokenIssueResponse;
     }
 
-    private Token generatetoken(TokenIssueRequest tokenIssueRequest) {
-        Token token = new Token();
+    private Token generatetoken(TokenIssueRequest tokenIssueRequest) throws Exception {
+        Token token = null;
         try {
-            VehicleAllowed vehicleAllowed = vehicleAllowedRepo.findByVehicleName(tokenIssueRequest.getVehicleAllowed());
+            VehicleAllowed vehicleAllowed = tokenRequestValidator.validateVehicleAllowed(tokenIssueRequest);
             if (vehicleAllowed == null) {
                 return null;
             }
-            Gate gate = gateService.findByStatus(GateType.ENTRY.name());
+            token = new Token();
+            Optional<ParkingLot> parkingLot = parkingLotRepo.findById(tokenIssueRequest.getParkingLotId());
+            Gate gate = gateService.findByParkingLotAndGateType(parkingLot.get(), GateType.ENTRY.name(), GateStatus.OPEN.name());
             token.setEntryGate(gate);
             token.setEntryTime(new Date());
             token.setOperators(gate.getOperators());
             token.setGuid(parkingLotUtils.generateGuid());
             token.setStatus(TokenStatus.ACTIVE.name());
-            ParkingSlot parkingSlot = getService(tokenIssueRequest.getSlotAllocation().name()).getNewSlot(vehicleAllowed, gate);
+            ParkingSlot parkingSlot = parkingLotUtils.getSlotAssginStartergyService(tokenIssueRequest.getSlotAllocation().name())
+                    .getNewSlot(vehicleAllowed, gate);
             token.setParkingSlot(parkingSlot);
-            vehicleService.saveVehicle(tokenIssueRequest.getOwnerName(), tokenIssueRequest.getVehicleNumber(), vehicleAllowed.getVehicleName());
+            Vehicle vehicle = vehicleService.saveVehicle(tokenIssueRequest.getOwnerName(),
+                    tokenIssueRequest.getVehicleNumber(), vehicleAllowed.getVehicleName());
+            token.setVehicle(vehicle);
             tokenRepo.save(token);
-
         } catch (Exception e) {
             return null;
         }
 
         return token;
-    }
-
-    private SlotAssginStartergy getService(String beanName) {
-        return getBean(beanName + "_SLOT_ASSGIN_STARTERGY", SlotAssginStartergy.class);
-    }
-
-    private <T> T getBean(String name, Class<T> tClass) {
-        try {
-            return (T) beanFactory.getBean(name);
-        } catch (Exception e) {
-
-        }
-        return null;
     }
 }

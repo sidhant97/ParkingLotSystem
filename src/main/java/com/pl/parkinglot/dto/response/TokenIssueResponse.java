@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class TokenIssueResponse {
+
     private Token token;
 
     private ResponseStatus responseStatus;

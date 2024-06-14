@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "bill")
-public class Bill extends CommonFields {
+public class Bill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +41,22 @@ public class Bill extends CommonFields {
 
     @Column(name = "exit_time")
     private Date exitTime;
+
+    @Column(name = "guid", unique = true)
+    private String guid;
+
+    @Column(name = "isactive")
+    private short isActive = 1;
+
+    @Column(name = "isdelete")
+    private short isDelete = 0;
+
+    @Column(name = "createddate")
+    private Date createdDate = new Date();
+
+    @Column(name = "modifieddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedDate = new Date();
 
 
 }

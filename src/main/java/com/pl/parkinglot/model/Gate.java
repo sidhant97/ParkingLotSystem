@@ -10,22 +10,27 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "gate")
-public class Gate extends CommonFields {
+public class Gate {
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parking_lot_id")
-    ParkingLot parkingLot;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gate_id")
     private Integer gateId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parking_lot_id")
+    ParkingLot parkingLot;
+
     @OneToOne
     @JoinColumn(name = "operator_id", referencedColumnName = "operator_id")
     private Operators operators;
+
     @Column(name = "status")
     private String status;
+
     @Column(name = "gate_type")
     private String gateType;
+
     @Column(name = "guid", unique = true)
     private String guid;
 

@@ -25,12 +25,6 @@ public class Payment {
     @Column(name = "mode")
     private String mode;
 
-
-    /*@OneToOne
-    @JoinColumn(name = "token_id", referencedColumnName = "token_id")
-    private Token token;
-
-    */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
     private Bill bill;

@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/parkinglot
+    url: jdbc:mysql://localhost:3306/parking_lot
     username: root
     password: 9996764596s
     driver-class-name: com.mysql.cj.jdbc.Driver
