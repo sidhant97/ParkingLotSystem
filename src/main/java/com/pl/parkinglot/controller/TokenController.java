@@ -21,8 +21,8 @@ public class TokenController {
 
     @PostMapping("/token/v0/retry")
     private ResponseEntity<Object> entryParking(TokenIssueRequest tokenIssueRequest) throws Exception {
-        TokenIssueResponse tokenIssueResponse =  tokenService.entryParking(tokenIssueRequest);
-        if(!tokenIssueResponse.getResponseStatus().name().equals(ResponseStatus.SUCCESS.name())){
+        TokenIssueResponse tokenIssueResponse = tokenService.entryParking(tokenIssueRequest);
+        if (!tokenIssueResponse.getResponseStatus().name().equals(ResponseStatus.SUCCESS.name())) {
             return new ResponseEntity<>(tokenIssueResponse.getFailureMsg(), HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return new ResponseEntity<>(tokenIssueResponse, HttpStatus.OK);
@@ -30,8 +30,8 @@ public class TokenController {
 
     @PostMapping("/token/v0/exit")
     private ResponseEntity<Object> exitParking(TokenIssueRequest tokenIssueRequest) throws Exception {
-        TokenIssueResponse tokenIssueResponse =  tokenService.exitParking(tokenIssueRequest);
-        if(tokenIssueResponse == null){
+        TokenIssueResponse tokenIssueResponse = tokenService.exitParking(tokenIssueRequest);
+        if (tokenIssueResponse == null) {
             return new ResponseEntity<>(tokenIssueResponse.getFailureMsg(), HttpStatus.UNPROCESSABLE_ENTITY);
         }
         return new ResponseEntity<>(tokenIssueResponse, HttpStatus.OK);

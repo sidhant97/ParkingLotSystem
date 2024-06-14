@@ -13,7 +13,7 @@ public class GateServiceImpl implements GateService {
     private GateRepo gateRepo;
 
 
-    public Gate findByStatus(String status){
-       return gateRepo.findByStatus(status);
+    public Gate findByStatus(String status) {
+        return gateRepo.findByStatus(status);
     }
 }

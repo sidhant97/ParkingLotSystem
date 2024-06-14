@@ -1,7 +1,6 @@
 package com.pl.parkinglot.service.impl;
 
 import com.pl.parkinglot.model.Vehicle;
-import com.pl.parkinglot.repo.VehicleAllowedRepo;
 import com.pl.parkinglot.repo.VehicleRepo;
 import com.pl.parkinglot.service.VehicleService;
 import com.pl.parkinglot.utils.common.ParkingLotUtils;

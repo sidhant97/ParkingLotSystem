@@ -30,7 +30,8 @@ public class Payment {
     @JoinColumn(name = "token_id", referencedColumnName = "token_id")
     private Token token;
 
-    */@ManyToOne(cascade = CascadeType.ALL)
+    */
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
     private Bill bill;
 

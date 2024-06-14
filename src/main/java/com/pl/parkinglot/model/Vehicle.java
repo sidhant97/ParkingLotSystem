@@ -1,4 +1,5 @@
 package com.pl.parkinglot.model;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "vehicle")
-public class Vehicle extends CommonFields{
+public class Vehicle extends CommonFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

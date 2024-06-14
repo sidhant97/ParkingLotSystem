@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VehicleAllowedRepo extends JpaRepository<VehicleAllowed,Integer> {
+public interface VehicleAllowedRepo extends JpaRepository<VehicleAllowed, Integer> {
 
     @Query("Select a from VehicleAllowed a where a.isActive = 1 and a.isDelete = 0 and a.vehicleName=:vehicleName")
     VehicleAllowed findByVehicleName(@Param("vehicleName") String vehicleName);

@@ -6,7 +6,7 @@ import com.pl.parkinglot.model.VehicleAllowed;
 import org.springframework.stereotype.Service;
 
 @Service("REVERSED_SLOT_ASSGIN_STARTERGY")
-public class ReversedSlotAssginStartergy extends DefaultSlotAssginStartergy{
+public class ReversedSlotAssginStartergy extends DefaultSlotAssginStartergy {
     @Override
     public ParkingSlot getNewSlot(VehicleAllowed vehicleType, Gate gate) throws Exception {
         return null;

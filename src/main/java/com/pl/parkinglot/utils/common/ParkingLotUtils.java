@@ -12,7 +12,7 @@ public class ParkingLotUtils {
 
     Logger logger = LoggerFactory.getLogger(ParkingLotUtils.class);
 
-    public String generateGuid(){
+    public String generateGuid() {
         return UUID.randomUUID().toString();
     }
 

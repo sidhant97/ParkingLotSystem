@@ -6,5 +6,5 @@ import com.pl.parkinglot.model.VehicleAllowed;
 
 public interface SlotAssginStartergy {
 
-    ParkingSlot  getNewSlot(VehicleAllowed vehicleType, Gate gate) throws Exception;
+    ParkingSlot getNewSlot(VehicleAllowed vehicleType, Gate gate) throws Exception;
 }
