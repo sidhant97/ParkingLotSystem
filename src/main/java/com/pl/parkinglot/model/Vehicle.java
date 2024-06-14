@@ -1,6 +1,6 @@
 package com.pl.parkinglot.model;
 
-public class VehicleModel {
+public class Vehicle {
 
     private Integer id;
 

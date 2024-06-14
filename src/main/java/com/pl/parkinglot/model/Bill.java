@@ -3,17 +3,17 @@ package com.pl.parkinglot.model;
 import java.util.Date;
 import java.util.List;
 
-public class BillModel {
+public class Bill extends CommonFields{
     
     private Integer id;
     
-    private TokenModel tokenModel;
+    private Token token;
 
-    private GateModel gate;
+    private Gate gate;
 
-    private OperatorModel operator;
+    private Operator operator;
 
-    private List<PaymentModel> paymentModel;
+    private List<Payment> payment;
 
     private Date date;
     

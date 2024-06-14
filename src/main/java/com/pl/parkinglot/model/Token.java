@@ -2,19 +2,19 @@ package com.pl.parkinglot.model;
 
 import java.util.Date;
 
-public class TokenModel {
+public class Token extends CommonFields{
 
     private String id;
 
-    private OperatorModel operator;
+    private Operator operator;
 
     private Date entryTime;
 
     private Date exitTime;
 
-    private VehicleModel vehicleModel;
+    private Vehicle vehicle;
 
     private String status;
 
-    private ParkingSlotModel parkingSlot;
+    private ParkingSlot parkingSlot;
 }
