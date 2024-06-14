@@ -20,5 +20,5 @@ spring:
 
 
 api:
-  parkingcontext: /parking
+  context: /parking
 

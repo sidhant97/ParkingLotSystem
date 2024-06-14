@@ -1,4 +1,5 @@
 package com.pl.parkinglot.constant;
 
-public class ResponseStatus {
+public enum ResponseStatus {
+    SUCCESS, FAILED
 }
